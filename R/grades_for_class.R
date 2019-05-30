@@ -1,4 +1,4 @@
-grades <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+grades <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 my_function <- function (course_id) {
   class_grades <- grades[grep(course_id, grades$Course_Number),]
   print(dim(class_grades))

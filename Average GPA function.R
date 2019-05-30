@@ -1,4 +1,4 @@
-course_data <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+course_data <-read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 library(stringr)
 library(dplyr)
 #function returns the average gpa for a certain professor
