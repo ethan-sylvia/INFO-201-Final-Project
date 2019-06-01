@@ -6,28 +6,30 @@
 # 
 #    http://shiny.rstudio.com/
 #
-
+#library(markdown)
 library(shiny)
+library(dplyr)
+library(stringr)
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-  
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotOutput("distPlot")
+file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+shinyUI(navbarPage("UW class search",
+  tabPanel("Overview",
+    sidebarLayout(
+      sidebarPanel(
+        
+      ),
+      mainPanel(
+        textOutput("info")
+      )
     )
+  ),
+  tabPanel("find quarter",
+    dataTableOutput("quarter")
+  ),
+  tabPanel("GPA"
+
+            ),
+  tabPanel("professor"
+           
   )
 ))
