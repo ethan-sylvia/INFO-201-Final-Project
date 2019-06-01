@@ -10,6 +10,7 @@
 library(shiny)
 library(dplyr)
 library(stringr)
+library(DT)
 
 file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 shinyUI(navbarPage("UW class search",
@@ -24,6 +25,9 @@ shinyUI(navbarPage("UW class search",
     )
   ),
   tabPanel("find quarter",
+    textInput("text", label = "Please Type In The Course Number", value = ""),
+    textOutput("offered"),
+    br(),
     dataTableOutput("quarter")
   ),
   tabPanel("GPA"
