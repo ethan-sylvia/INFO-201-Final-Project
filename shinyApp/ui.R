@@ -1,12 +1,3 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-#library(markdown)
 library(shiny)
 library(dplyr)
 library(stringr)
@@ -27,7 +18,9 @@ shinyUI(navbarPage("UW class search",
   ),
   tabPanel("find quarter",
     img(src="logo.jpg", alt="logo",align = "right"),
-    textInput("text", label = "Please Type In The Course Number", value = ""),
+    div(class = "label",
+      textInput("text", label = "Please Type In The Course Number", value = "")
+    ),
     textOutput("offered"),
     br(),
     dataTableOutput("quarter")

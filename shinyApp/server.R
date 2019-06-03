@@ -7,18 +7,28 @@ shinyServer(function(input, output) {
   output$info<-renderText({
     "gneeral info"
   })
+  
+# returns a table of all courses fit with the couse number that the user
+#  asks for with information of the term, course number, course title,
+#  instructors and the average GPA. 
   output$quarter <- renderDataTable({
       if(input$text != ""){
          datatable(file %>% filter(str_detect(Course_Number, input$text)) %>% 
-                   select(Term, Course_Number, Course_Title, Primary_Instructor, Average_GPA),
-                   colnames = c("Term", "Course Number", "Course Title", "Instructor", "Average GPA"),
+                   select(Term, Course_Number, Course_Title, Primary_Instructor,
+                          Average_GPA),
+                   colnames = c("Term", "Course Number", "Course Title",
+                                "Instructor", "Average GPA"),
                    options = list(dom = 'ltipr'), rownames = FALSE)
       } else {
-        datatable(file %>% select(Term, Course_Number, Course_Title, Primary_Instructor, Average_GPA),
-                  colnames = c("Term", "Course Number", "Course Title", "Instructor", "Average GPA"),
+        datatable(file %>% select(Term, Course_Number, Course_Title,
+                                  Primary_Instructor, Average_GPA),
+                  colnames = c("Term", "Course Number", "Course Title",
+                               "Instructor", "Average GPA"),
                   options = list(dom = 'ltipr'), rownames = FALSE)
       }
   })
+# returns a sentence summary telling the user which quarter that the course
+#  they asked is offered
   output$offered <- renderPrint({
     class <- file %>% filter(str_detect(Course_Number, input$text)) %>%
       select(Term, Course_Number, Course_Title, Primary_Instructor, Average_GPA)
