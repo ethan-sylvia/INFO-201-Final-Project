@@ -14,6 +14,7 @@ library(DT)
 
 file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 shinyUI(navbarPage("UW class search",
+  theme = "style.css", 
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
@@ -25,6 +26,7 @@ shinyUI(navbarPage("UW class search",
     )
   ),
   tabPanel("find quarter",
+    img(src="logo.jpg", alt="logo",align = "right"),
     textInput("text", label = "Please Type In The Course Number", value = ""),
     textOutput("offered"),
     br(),
