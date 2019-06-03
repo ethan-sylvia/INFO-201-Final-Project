@@ -11,8 +11,10 @@ library(shiny)
 library(dplyr)
 library(stringr)
 library(DT)
+library(ggplot2)
 
-file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
+
 shinyUI(navbarPage("UW class search",
   tabPanel("Overview",
     sidebarLayout(
@@ -30,9 +32,26 @@ shinyUI(navbarPage("UW class search",
     br(),
     dataTableOutput("quarter")
   ),
-  tabPanel("GPA"
-
-            ),
+  
+  tabPanel("GPA Overview", 
+    sidebarPanel(
+        selectInput("course_lvl", label = "Select the course level",
+                    choice = c("100", "200", "300", "400", "500")
+                         
+        ),
+        
+        selectInput("quarter_lvl", label = "Select the quarter", 
+                    choice = c("Autumn", "Winter", "Spring", "Summer")
+                    ),
+             
+        textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
+             
+        hr(),
+        fluidRow(column(3, verbatimTextOutput("value")))
+  ),
+  mainPanel(plotOutput("GPA_plot"))
+  ),
+  
   tabPanel("professor"
            
   )
