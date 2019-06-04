@@ -3,9 +3,24 @@ library(dplyr)
 library(stringr)
 library(DT)
 library(ggplot2)
+
+
+file <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+
+class_info <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
+class_info$classes <- substr(class_info$Course_Number, 1, nchar(as.character(class_info$Course_Number))-1) 
+condensded_frame <- class_info
+condensded_frame$Course_Number <- NULL
+condensded_frame$quarter <- substring(condensded_frame$Term, 6)
 file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 shinyServer(function(input, output) {
-
+  output$md <- renderUI({
+    includeMarkdown("../intro.md")
+    
+  })
+  output$about <- renderUI({
+    includeMarkdown("../about_us.md")
+  })
   
 # returns a table of all courses fit with the couse number that the user
 #  asks for with information of the term, course number, course title,
@@ -103,6 +118,106 @@ shinyServer(function(input, output) {
       xlab(label = "Years") +
       ylab(label = "Average GPA") +
       labs(colour = "Course Name")
+  })
+  output$md <- renderUI({
+    includeMarkdown("../intro.md")
+    
+  })
+  output$about <- renderUI({
+    includeMarkdown("../about_us.md")
+  })
+  
+  # returns a table of all courses fit with the couse number that the user
+  #  asks for with information of the term, course number, course title,
+  #  instructors and the average GPA. 
+  output$quarter <- renderDataTable({
+    if(input$text != ""){
+      datatable(file %>% filter(str_detect(Course_Number, input$text)) %>% 
+                  select(Term, Course_Number, Course_Title, Primary_Instructor,
+                         Average_GPA),
+                colnames = c("Term", "Course Number", "Course Title",
+                             "Instructor", "Average GPA"),
+                options = list(dom = 'ltipr'), rownames = FALSE)
+    } else {
+      datatable(file %>% select(Term, Course_Number, Course_Title,
+                                Primary_Instructor, Average_GPA),
+                colnames = c("Term", "Course Number", "Course Title",
+                             "Instructor", "Average GPA"),
+                options = list(dom = 'ltipr'), rownames = FALSE)
+    }
+  })
+  # returns a sentence summary telling the user which quarter that the course
+  #  they asked is offered
+  output$offered <- renderPrint({
+    class <- file %>% filter(str_detect(Course_Number, input$text)) %>%
+      select(Term, Course_Number, Course_Title, Primary_Instructor, Average_GPA)
+    if(input$text == "") {
+      cat("Offered in:")
+    } else {
+      if (nrow(class) == 0) {
+        cat("Course not found...")
+      } else {
+        time <- "Offered in:"
+        spr <- class %>% filter(str_detect(Term,'Spring'))
+        sum <- class %>% filter(str_detect(Term,'Summer'))
+        aut <- class %>% filter(str_detect(Term,'Autumn'))
+        win <- class %>% filter(str_detect(Term,'Winter'))
+        if(nrow(spr)!= 0) {
+          time<- paste(time,"Spring")
+        }
+        if(nrow(sum) != 0){
+          time <- paste(time, "Summer", sep = ", ")
+        }
+        if(nrow(aut) != 0){
+          time <- paste(time, "Autumn", sep = ", ")
+        }
+        if(nrow(win) != 0){
+          time <- paste(time, "Winter", sep = ", ")
+        }
+        cat(time)
+      }
+    }
+  })
+  
+  output$value <- renderPrint({
+    input$prof_name
+  })
+  output$value <- renderPrint({
+    input$classes
+  })
+  output$value <- renderPrint({
+    input$students
+  })
+  
+  output$text <- renderDataTable({
+    filter_frame <- condensded_frame[tolower(condensded_frame$Primary_Instructor) == tolower(input$prof_name), ]
+    final_frame <- select(filter_frame, classes, quarter)
+    final_frame
+  })
+  
+  output$scatter <- renderPlot({
+    filter_frame_classes <- filter(condensded_frame, classes == paste0(input$classes, " "))
+    filter_frame_classes <- select(filter_frame_classes, Average_GPA, quarter)
+    quarter_data <- ddply(filter_frame_classes, .(quarter), summarise, Average_GPA=mean(Average_GPA))
+    ggplot(data = as.data.frame(quarter_data), 
+           aes(x = quarter, y = Average_GPA)) +
+      geom_point() +
+      ggtitle(input$classes) +
+      labs(y = "Average GPA", x = "Quarter") +
+      scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = .1))
+    
+  })
+  output$bar <- renderPlot({
+    filter_frame_students <- filter(condensded_frame, classes == paste0(input$students, " "))
+    filter_frame_students <- select(filter_frame_students, Student_Count, quarter)
+    students_data <- ddply(filter_frame_students, .(quarter), summarise, Student_Count=sum(Student_Count))
+    ggplot(data = students_data, 
+           aes(x = students_data$quarter, y = students_data$Student_Count)) +
+      geom_bar(stat = "Identity") +
+      ggtitle(input$students) +
+      labs(y = "Student Number", x = "Quarter") +
+      scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = .1))      
+    
   })
 })
 

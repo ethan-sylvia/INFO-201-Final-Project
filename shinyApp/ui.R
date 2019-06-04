@@ -12,13 +12,56 @@ shinyUI(navbarPage("UW class search",
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
-        includeMarkdown("../about_us.md")
+        uiOutput("about")
       ),
     mainPanel(
-      includeMarkdown("../intro.md")
+      uiOutput("md")
     )
   )
   ),
+  tabPanel("Professor Teaching History",
+           sidebarLayout(
+             
+             sidebarPanel(
+               
+               textInput(
+                 "prof_name", 
+                 label = h4("Enter Teacher Name Format: Last Name, First Name, Middle Name Initials (If Applicable)") 
+                 
+               )
+             ),
+             mainPanel(
+               dataTableOutput("text")
+             )
+           )
+  ),
+  tabPanel("Average GPA ScatterPlot",
+           sidebarLayout(
+             sidebarPanel(
+               textInput(
+                 "classes", 
+                 label = h3("Enter Class")
+               )
+             ),
+             mainPanel(
+               plotOutput("scatter")
+             )
+           )
+  ),
+  tabPanel("Course Student Count",
+           sidebarLayout(
+             
+             sidebarPanel(
+               textInput(
+                 "students", 
+                 label = h3("Enter Class (Student Count)")
+               )
+             ),
+             mainPanel(
+               plotOutput("bar")
+             )
+           )
+  ),  
   tabPanel("find quarter",
     img(src="logo.jpg", alt="logo",align = "right"),
     div(class = "label",
