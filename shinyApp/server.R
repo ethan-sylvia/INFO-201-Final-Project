@@ -5,22 +5,17 @@ library(DT)
 library(ggplot2)
 library(plyr)
 
-
-file <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
-
-class_info <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
-class_info$classes <- substr(class_info$Course_Number, 1, nchar(as.character(class_info$Course_Number))-1) 
-condensded_frame <- class_info
+file <- read.delim("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
+file$classes <- substr(file$Course_Number, 1, nchar(as.character(file$Course_Number))-1) 
+condensded_frame <- file
 condensded_frame$Course_Number <- NULL
 condensded_frame$quarter <- substring(condensded_frame$Term, 6)
-file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 shinyServer(function(input, output) {
   output$md <- renderUI({
-    includeMarkdown("../intro.md")
-    
+    includeMarkdown("intro.md")
   })
   output$about <- renderUI({
-    includeMarkdown("../about_us.md")
+    includeMarkdown("about_us.md")
   })
   
 # returns a table of all courses fit with the couse number that the user
@@ -119,13 +114,6 @@ shinyServer(function(input, output) {
       xlab(label = "Years") +
       ylab(label = "Average GPA") +
       labs(colour = "Course Name")
-  })
-  output$md <- renderUI({
-    includeMarkdown("../intro.md")
-    
-  })
-  output$about <- renderUI({
-    includeMarkdown("../about_us.md")
   })
   
   # returns a table of all courses fit with the couse number that the user
