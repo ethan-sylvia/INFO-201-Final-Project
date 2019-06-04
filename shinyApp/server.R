@@ -57,8 +57,6 @@ shinyServer(function(input, output) {
       return(as.numeric(x))
     }
     test <- take_course_level(file$Course_Number)
-    course_lvl <- "350"
-    course_name <- "MATH"
     
     test_file <- file %>% filter(Course_Number %>% take_course_level() >= as.numeric(input$course_lvl) &
                                    Course_Number %>% take_course_level() < (as.numeric(input$course_lvl)+100))
@@ -71,8 +69,6 @@ shinyServer(function(input, output) {
     #View(test2)
     check <- ""
     times <- 1
-    a <- "MATH 124"
-    b <- "MATH 125"
     test3 <- data.frame()
     for(i in 1: nrow(test2)) {
       if(test2[i, ]$Course != check) {
@@ -96,8 +92,6 @@ shinyServer(function(input, output) {
       xlab(label = "Years") +
       ylab(label = "Average GPA") +
       labs(colour = "Course Name")
-    
-    
   })
 })
 
