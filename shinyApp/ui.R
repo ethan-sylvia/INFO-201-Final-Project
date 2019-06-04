@@ -1,14 +1,11 @@
 library(shiny)
 library(dplyr)
-<<<<<<< HEAD
+library(markdown)
 library(stringr)
 library(DT)
 library(ggplot2)
 
 file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
-=======
-library(markdown)
->>>>>>> 2d55e4898ecb1222544869e099d8766c347356b9
 
 shinyUI(navbarPage("UW class search",
   theme = "style.css", 
@@ -55,3 +52,4 @@ shinyUI(navbarPage("UW class search",
            
   )
 ))
+

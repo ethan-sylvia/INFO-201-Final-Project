@@ -65,6 +65,9 @@ shinyServer(function(input, output) {
     }
   })
   
+# Based on the course level you chose(100,200,300,400,500), and the major name and the quarter,
+# this will return the line plot of the trend of average gpa changes over the years for each course
+# that satisfy your requirements.  
   output$GPA_plot <- renderPlot({
     take_course_level <- function(Course_Number) {
       x <- substr(Course_Number, nchar(Course_Number)-4, nchar(Course_Number)-2)
