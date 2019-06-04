@@ -181,7 +181,7 @@ shinyServer(function(input, output) {
   output$text <- renderDataTable({
     filter_frame <- condensded_frame[tolower(condensded_frame$Primary_Instructor) == tolower(input$prof_name), ]
     final_frame <- select(filter_frame, classes, quarter, Course_Title)
-    final_frame
+    datatable(final_frame, rownames = FALSE, options = list(dom = 'ltipr'))
   })
   
   output$scatter <- renderPlot({

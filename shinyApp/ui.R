@@ -90,8 +90,7 @@ shinyUI(navbarPage("UW class search",
              
         textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
              
-        hr(),
-        fluidRow(column(3, verbatimTextOutput("value")))
+        hr()
   ),
   mainPanel(plotOutput("GPA_plot"))
   )
