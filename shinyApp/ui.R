@@ -8,17 +8,20 @@ library(ggplot2)
 file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 
 shinyUI(navbarPage("UW class search", 
+  theme = "style.css",
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
         uiOutput("about")
       ),
     mainPanel(
+      img(src="logo.jpg", alt="logo",align = "right"),
       uiOutput("md")
     )
   )
   ),
   tabPanel("Professor Teaching History",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
              
              sidebarPanel(
@@ -35,6 +38,7 @@ shinyUI(navbarPage("UW class search",
            )
   ),
   tabPanel("Average GPA ScatterPlot",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
              sidebarPanel(
                textInput(
@@ -48,6 +52,7 @@ shinyUI(navbarPage("UW class search",
            )
   ),
   tabPanel("Course Student Count",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
              
              sidebarPanel(
@@ -64,7 +69,7 @@ shinyUI(navbarPage("UW class search",
   tabPanel("find quarter",
     img(src="logo.jpg", alt="logo",align = "right"),
     div(class = "label",
-      textInput("text", label = "Please Type In The Course Number", value = "Example: MATH 126")
+      textInput("text", label = "Please Type In The Course Number (ie: MATH 126)", value = "")
     ),
     textOutput("offered"),
     br(),
@@ -72,6 +77,7 @@ shinyUI(navbarPage("UW class search",
   ),
   
   tabPanel("GPA Overview", 
+    img(src="logo.jpg", alt="logo",align = "right"),
     sidebarPanel(
         selectInput("course_lvl", label = "Select the course level",
                     choice = c("100", "200", "300", "400", "500")
