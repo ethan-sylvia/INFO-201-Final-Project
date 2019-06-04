@@ -1,18 +1,10 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-#library(markdown)
 library(shiny)
 library(dplyr)
 library(markdown)
 
 file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 shinyUI(navbarPage("UW class search",
+  theme = "style.css", 
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
@@ -24,7 +16,10 @@ shinyUI(navbarPage("UW class search",
   )
   ),
   tabPanel("find quarter",
-    textInput("text", label = "Please Type In The Course Number", value = ""),
+    img(src="logo.jpg", alt="logo",align = "right"),
+    div(class = "label",
+      textInput("text", label = "Please Type In The Course Number", value = "")
+    ),
     textOutput("offered"),
     br(),
     dataTableOutput("quarter")
