@@ -3,6 +3,7 @@ library(dplyr)
 library(stringr)
 library(DT)
 library(ggplot2)
+library(plyr)
 
 
 file <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
@@ -191,7 +192,7 @@ shinyServer(function(input, output) {
   
   output$text <- renderDataTable({
     filter_frame <- condensded_frame[tolower(condensded_frame$Primary_Instructor) == tolower(input$prof_name), ]
-    final_frame <- select(filter_frame, classes, quarter)
+    final_frame <- select(filter_frame, classes, quarter, Course_Title)
     final_frame
   })
   
