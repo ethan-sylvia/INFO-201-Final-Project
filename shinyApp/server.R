@@ -203,14 +203,16 @@ and the major name and the quarter, and it will show a line plot of the trend of
   output$value <- renderPrint({
     input$students
   })
-  
+  # Shows a dataframe of all the classes a teacher has taught from the given
+  # data set
   output$text <- renderDataTable({
     filter_frame <- condensded_frame[tolower(condensded_frame$Primary_Instructor)
                                      == tolower(input$prof_name), ]
     final_frame <- select(filter_frame, classes, quarter, Course_Title)
     datatable(final_frame, rownames = FALSE, options = list(dom = 'ltipr'))
   })
-  
+  # Shows a scatterplot showing the average GPA of a class inputted by the 
+  # User each quarter.
   output$scatter <- renderPlot({
     filter_frame_classes <- filter(condensded_frame,
                                    classes == paste0(input$classes, " "))
@@ -225,6 +227,8 @@ and the major name and the quarter, and it will show a line plot of the trend of
       scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = .1))
     
   })
+  # Returns a bar chart showing the number of students that take a 
+  # class inputed by the user each quarter. 
   output$bar <- renderPlot({
     filter_frame_students <- filter(condensded_frame, classes ==
                                       paste0(input$students, " "))
