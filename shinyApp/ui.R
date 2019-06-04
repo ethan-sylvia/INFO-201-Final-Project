@@ -5,28 +5,27 @@ library(stringr)
 library(DT)
 library(ggplot2)
 
-file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
-
+file <- read.delim("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 shinyUI(navbarPage("UW class search",
+                   theme = "style.css",
   tabPanel("Overview",
-    sidebarLayout(
-      sidebarPanel(
-        uiOutput("about")
-      ),
-    mainPanel(
-      uiOutput("md")
-    )
-  )
-  ),
-  tabPanel("Professor Teaching History",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
-             
              sidebarPanel(
-               
+               uiOutput("about")
+           ),
+           mainPanel(
+             uiOutput("md")
+           )
+  )),
+  tabPanel("Professor Teaching History",
+           img(src="logo.jpg", alt="logo",align = "right"),
+           sidebarLayout(
+             sidebarPanel(
                textInput(
                  "prof_name", 
-                 label = h4("Enter Teacher Name Format: Last Name, First Name, Middle Name Initials (If Applicable)") 
-                 
+                 label = h4("Enter Teacher Name Format: Last Name, First Name,
+                            Middle Name Initials (If Applicable)") 
                )
              ),
              mainPanel(
@@ -35,6 +34,7 @@ shinyUI(navbarPage("UW class search",
            )
   ),
   tabPanel("Average GPA ScatterPlot",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
              sidebarPanel(
                textInput(
@@ -48,8 +48,8 @@ shinyUI(navbarPage("UW class search",
            )
   ),
   tabPanel("Course Student Count",
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarLayout(
-             
              sidebarPanel(
                textInput(
                  "students", 
@@ -61,10 +61,11 @@ shinyUI(navbarPage("UW class search",
              )
            )
   ),  
-  tabPanel("find quarter",
+  tabPanel("Find Quarter",
     img(src="logo.jpg", alt="logo",align = "right"),
     div(class = "label",
-      textInput("text", label = "Please Type In The Course Number", value = "Example: MATH 126")
+      textInput("course_number", label = "Please Type In The Course Number (ie:MATH 126)",
+                value = "")
     ),
     textOutput("offered"),
     br(),
@@ -72,26 +73,19 @@ shinyUI(navbarPage("UW class search",
   ),
   
   tabPanel("GPA Overview", 
+           img(src="logo.jpg", alt="logo",align = "right"),
            sidebarPanel(
              selectInput("course_lvl", label = "Select the course level",
                          choice = c("100", "200", "300", "400", "500")
                          
              ),
-             
              selectInput("quarter_lvl", label = "Select the quarter", 
                          choice = c("Autumn", "Winter", "Spring", "Summer")
              ),
-             
              textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
-             
              hr()
            ),
-           
            mainPanel(textOutput('Issue'), plotOutput("GPA_plot"))
-  ),
-  
-  tabPanel("professor"
-           
   )
 ))
 
