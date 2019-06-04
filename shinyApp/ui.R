@@ -72,23 +72,22 @@ shinyUI(navbarPage("UW class search",
   ),
   
   tabPanel("GPA Overview", 
-    sidebarPanel(
-        selectInput("course_lvl", label = "Select the course level",
-                    choice = c("100", "200", "300", "400", "500")
+           sidebarPanel(
+             selectInput("course_lvl", label = "Select the course level",
+                         choice = c("100", "200", "300", "400", "500")
                          
-        ),
-        
-        selectInput("quarter_lvl", label = "Select the quarter", 
-                    choice = c("Autumn", "Winter", "Spring", "Summer")
-                    ),
+             ),
              
-        textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
+             selectInput("quarter_lvl", label = "Select the quarter", 
+                         choice = c("Autumn", "Winter", "Spring", "Summer")
+             ),
              
-        hr()
-        #fluidRow(column(3, verbatimTextOutput("value")))
-  ),
-  
-  mainPanel(textOutput('Issue'), plotOutput("GPA_plot"))
+             textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
+             
+             hr()
+           ),
+           
+           mainPanel(textOutput('Issue'), plotOutput("GPA_plot"))
   ),
   
   tabPanel("professor"

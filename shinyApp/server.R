@@ -3,25 +3,22 @@ library(dplyr)
 library(stringr)
 library(DT)
 library(ggplot2)
+library(plyr)
 
-file <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
-
-class_info <- read.csv("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
-class_info$classes <- substr(class_info$Course_Number, 1, nchar(as.character(class_info$Course_Number))-1) 
-condensded_frame <- class_info
+file <- read.delim("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
+file$classes <- substr(file$Course_Number, 1, nchar(as.character(file$Course_Number))-1) 
+condensded_frame <- file
 condensded_frame$Course_Number <- NULL
 condensded_frame$quarter <- substring(condensded_frame$Term, 6)
-file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 shinyServer(function(input, output) {
   issue <- reactiveValues(x="Instruction: Choose the course level (100,200,300,400,500), and the major name and the quarter,
   and it will show a line plot of the trend of average gpa changes over the years for each course.")
-                         
+  
   output$md <- renderUI({
-    includeMarkdown("../intro.md")
-    
+    includeMarkdown("intro.md")
   })
   output$about <- renderUI({
-    includeMarkdown("../about_us.md")
+    includeMarkdown("about_us.md")
   })
   
 # returns a table of all courses fit with the couse number that the user
@@ -76,9 +73,9 @@ shinyServer(function(input, output) {
     }
   })
   
-# Based on the course level you chose(100,200,300,400,500), and the major name and the quarter,
-# this will return the line plot of the trend of average gpa changes over the years for each course
-# that satisfy your requirements.
+  # Based on the course level you chose(100,200,300,400,500), and the major name and the quarter,
+  # this will return the line plot of the trend of average gpa changes over the years for each course
+  # that satisfy your requirements.
   output$GPA_plot <- renderPlot({
     take_course_level <- function(Course_Number) {
       x <- substr(Course_Number, nchar(Course_Number)-4, nchar(Course_Number)-2)
@@ -95,54 +92,44 @@ shinyServer(function(input, output) {
         mutate(Quarter = substr(Term, nchar(Term)-3, nchar(Term))) %>% 
         mutate(Course = substr(Course_Number, 0, nchar(Course_Number) - 2)) %>% 
         filter(grepl(input$quarter_lvl, Term)) 
-        if(nrow(test2) == 0) {
-          issue$x <- "There is no course statisfies your requirement."
-        } else {
-          check <- ""
-          times <- 1
-          test3 <- data.frame()
-          for(i in 1: nrow(test2)) {
-            if(test2[i, ]$Course != check) {
-              times <- 1
-              test3 <- rbind(test3, test2[i, ])
-              check <- test2[i, ]$Course
-            } else {
-              test3[nrow(test3), ]$Average_GPA <- round((test3[nrow(test3), ]$Average_GPA * times +
-                                                           test2[i, ]$Average_GPA) / (times + 1), 3)
-              times <- times+1
-            }
-          }
-          if(nrow(test3) != 0) {
-            test3 <- test3 %>% select(Average_GPA, Quarter, Course)
-            ggplot(test3, aes(x = test3$Quarter, y = test3$Average_GPA, colour = test3$Course, 
-                              group = test3$Course, fill = test3$Course)) +
-              geom_line(size = 0.8) + 
-              geom_text(aes(label = Average_GPA, vjust = 1.1, hjust = 0.5, angle = 0), show.legend = F) +
-              labs(title = paste0("Line Plot of ", input$course_lvl, " Level Courses in ", toupper(input$course_name), " of ", 
-                                  input$quarter_lvl, " Quarter")) +
-              xlab(label = "Years") +
-              ylab(label = "Average GPA") +
-              labs(colour = "Course Name")
+      if(nrow(test2) == 0) {
+        issue$x <- "There is no course statisfies your requirement."
+      } else {
+        check <- ""
+        times <- 1
+        test3 <- data.frame()
+        for(i in 1: nrow(test2)) {
+          if(test2[i, ]$Course != check) {
+            times <- 1
+            test3 <- rbind(test3, test2[i, ])
+            check <- test2[i, ]$Course
           } else {
-            issue$x <- "There is no course statisfies your requirement."
+            test3[nrow(test3), ]$Average_GPA <- round((test3[nrow(test3), ]$Average_GPA * times +
+                                                         test2[i, ]$Average_GPA) / (times + 1), 3)
+            times <- times+1
           }
         }
+        if(nrow(test3) != 0) {
+          test3 <- test3 %>% select(Average_GPA, Quarter, Course)
+          ggplot(test3, aes(x = test3$Quarter, y = test3$Average_GPA, colour = test3$Course, 
+                            group = test3$Course, fill = test3$Course)) +
+            geom_line(size = 0.8) + 
+            geom_text(aes(label = Average_GPA, vjust = 1.1, hjust = 0.5, angle = 0), show.legend = F) +
+            labs(title = paste0("Line Plot of ", input$course_lvl, " Level Courses in ", toupper(input$course_name), " of ", 
+                                input$quarter_lvl, " Quarter")) +
+            xlab(label = "Years") +
+            ylab(label = "Average GPA") +
+            labs(colour = "Course Name")
+        } else {
+          issue$x <- "There is no course statisfies your requirement."
+        }
+      }
       
     }
   })
   
   output$Issue <- renderText({
     return(issue$x)
-  })
-  
-  
-  
-  output$md <- renderUI({
-    includeMarkdown("../intro.md")
-    
-  })
-  output$about <- renderUI({
-    includeMarkdown("../about_us.md")
   })
   
   # returns a table of all courses fit with the couse number that the user
@@ -209,8 +196,8 @@ shinyServer(function(input, output) {
   
   output$text <- renderDataTable({
     filter_frame <- condensded_frame[tolower(condensded_frame$Primary_Instructor) == tolower(input$prof_name), ]
-    final_frame <- select(filter_frame, classes, quarter)
-    final_frame
+    final_frame <- select(filter_frame, classes, quarter, Course_Title)
+    datatable(final_frame, rownames = FALSE, options = list(dom = 'ltipr'))
   })
   
   output$scatter <- renderPlot({
@@ -238,4 +225,3 @@ shinyServer(function(input, output) {
     
   })
 })
-
