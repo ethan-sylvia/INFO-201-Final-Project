@@ -90,8 +90,5 @@ shinyUI(navbarPage("UW class search",
   mainPanel(plotOutput("GPA_plot"))
   ),
   
-  tabPanel("professor"
-           
-  )
 ))
 
