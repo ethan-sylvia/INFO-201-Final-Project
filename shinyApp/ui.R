@@ -8,7 +8,6 @@ library(ggplot2)
 file <- read.delim("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
 
 shinyUI(navbarPage("UW class search",
-  theme = "style.css", 
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
@@ -85,10 +84,11 @@ shinyUI(navbarPage("UW class search",
              
         textInput("course_name", label = h5("Enter the major abbreviation"), value = "A A"),
              
-        hr(),
-        fluidRow(column(3, verbatimTextOutput("value")))
+        hr()
+        #fluidRow(column(3, verbatimTextOutput("value")))
   ),
-  mainPanel(plotOutput("GPA_plot"))
+  
+  mainPanel(textOutput('Issue'), plotOutput("GPA_plot"))
   ),
   
   tabPanel("professor"
