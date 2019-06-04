@@ -22,7 +22,7 @@ shinyUI(navbarPage("UW class search",
   tabPanel("find quarter",
     img(src="logo.jpg", alt="logo",align = "right"),
     div(class = "label",
-      textInput("text", label = "Please Type In The Course Number", value = "")
+      textInput("text", label = "Please Type In The Course Number", value = "Example: MATH 126")
     ),
     textOutput("offered"),
     br(),
