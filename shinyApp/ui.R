@@ -88,7 +88,7 @@ shinyUI(navbarPage("UW class search",
         fluidRow(column(3, verbatimTextOutput("value")))
   ),
   mainPanel(plotOutput("GPA_plot"))
-  ),
+  )
   
 ))
 
