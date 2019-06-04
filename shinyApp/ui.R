@@ -9,20 +9,19 @@
 #library(markdown)
 library(shiny)
 library(dplyr)
-library(stringr)
-library(DT)
+library(markdown)
 
 file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 shinyUI(navbarPage("UW class search",
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
-        
+        uiOutput("about")
       ),
-      mainPanel(
-        textOutput("info")
-      )
+    mainPanel(
+      uiOutput("md")
     )
+  )
   ),
   tabPanel("find quarter",
     textInput("text", label = "Please Type In The Course Number", value = ""),
