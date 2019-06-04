@@ -1,7 +1,7 @@
-![Jing](pictures/lobster-emoji.jpg)
+## Naveen's Green Meme Team
+### Members
 
-**project manager**
-
-![Gerry](pictures/crab.jpg)
-
-**lead designer**
+- **Jing**
+- **Ethan**
+- **Olivia**
+- **Gerry**
