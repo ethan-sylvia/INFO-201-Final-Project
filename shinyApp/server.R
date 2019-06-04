@@ -4,13 +4,7 @@ library(stringr)
 library(DT)
 file <- read.csv("../UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv")
 shinyServer(function(input, output) {
-  output$md <- renderUI({
-    includeMarkdown("../intro.md")
-    
-  })
-  output$about <- renderUI({
-    includeMarkdown("../about_us.md")
-  })
+
   
 # returns a table of all courses fit with the couse number that the user
 #  asks for with information of the term, course number, course title,

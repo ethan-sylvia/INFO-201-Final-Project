@@ -1,7 +1,7 @@
-![Jing](lobster-emoji.jpg)
+![Jing](pictures/lobster-emoji.jpg)
 
 **project manager**
 
-![Gerry](crab.jpg)
+![Gerry](pictures/crab.jpg)
 
 **lead designer**

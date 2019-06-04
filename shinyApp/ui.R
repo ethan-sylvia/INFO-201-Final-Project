@@ -8,10 +8,10 @@ shinyUI(navbarPage("UW class search",
   tabPanel("Overview",
     sidebarLayout(
       sidebarPanel(
-        uiOutput("about")
+        includeMarkdown("../about_us.md")
       ),
     mainPanel(
-      uiOutput("md")
+      includeMarkdown("../intro.md")
     )
   )
   ),
