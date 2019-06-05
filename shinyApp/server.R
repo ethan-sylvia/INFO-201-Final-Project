@@ -91,6 +91,7 @@ and the major name and the quarter, and it will show a line plot of the trend of
     if(nrow(test_file) == 0) {
       issue$x <- "There is no course statisfies your requirement."
     } else {
+      issue$x <- ""
       test2 <- test_file %>% filter(str_detect(Course_Number,
                                                toupper(input$course_name))) %>%
         mutate(Term = substr(Term, 8, nchar(Term)-1)) %>% 
@@ -100,6 +101,7 @@ and the major name and the quarter, and it will show a line plot of the trend of
       if(nrow(test2) == 0) {
         issue$x <- "There is no course statisfies your requirement."
       } else {
+        issue$x <- ""
         check <- ""
         times <- 1
         test3 <- data.frame()
@@ -117,6 +119,7 @@ and the major name and the quarter, and it will show a line plot of the trend of
           }
         }
         if(nrow(test3) != 0) {
+          issue$x <- ""
           test3 <- test3 %>% select(Average_GPA, Quarter, Course)
           ggplot(test3, aes(x = test3$Quarter, y = test3$Average_GPA,
                             colour = test3$Course, 
