@@ -1,8 +1,10 @@
 # Analyzing UW courses 
 
 ## Description of Data
-The data is from. It includes the course number, title of the course, year offered,
-instructors' names and grade from 2010 to 2016. 
+This data was sourced from the University of Washington by [Austin G. Walters](https://austingwalters.com/foia-requesting-100-universities/)
+according to the United States Freedom of Information Act (FOIA). It includes
+the course number, title of the course, year offered, instructors' names and
+grade from 2010 to 2016. 
 
 ## How to use the app 
 we created a shiny app about grades and courses offered in University of Washington.
