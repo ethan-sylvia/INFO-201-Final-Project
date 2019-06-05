@@ -26,5 +26,5 @@ The app consists five tabs to help users to find infomation of the courses they 
   the level of the couse and a quarter. a line plot would be shown to show the
   trend of average grade of all courses that satisfy the user'ss selection.
 
-[Link to the app](https://ovictor.shinyapps.io/shinyApp/)
+[Link to the app](https://jingwangapps.shinyapps.io/shinyApp/)
 
