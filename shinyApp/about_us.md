@@ -6,11 +6,11 @@
 
 **Professor Teaching History**
 
-  Typing in "Reges, Stuart" pulls up Stuart Reges' entire teaching history from 2011-2016.
+  Typing in "Reges, Stuart" pulls up Stuart Reges' entire teaching history from 2010-2016.
 
 **Average GPA ScatterPlot**
 
-  Yields the grade distribution for each quarter from 2011-2016 in the form of a scatterplot.
+  Yields the grade distribution for each quarter from 2010-2016 in the form of a scatterplot.
 
 **Course Student Count**
 
