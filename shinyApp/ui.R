@@ -6,7 +6,7 @@ library(DT)
 library(ggplot2)
 
 file <- read.delim("UW-Seattle_20110-20161-Course-Grade-Data_2016-04-06.csv", sep = ",", stringsAsFactors = F)
-shinyUI(navbarPage("UW class search",
+shinyUI(navbarPage("UW Class Navigation",
                    theme = "style.css",
   tabPanel("Overview",
            img(src="logo.jpg", alt="logo",align = "right"),

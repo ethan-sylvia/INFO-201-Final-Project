@@ -1,7 +1,4 @@
 
-![meme](meme.png)
-----
-
 ### **App How-To's**
 
 **Professor Teaching History**
