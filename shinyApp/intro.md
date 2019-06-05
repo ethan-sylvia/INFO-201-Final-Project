@@ -13,9 +13,9 @@ result in joy or misery...
 They can discover: 
 
 - **What quarter a course is offered**
-- **Grade distributions per professor**
-- **Grade distributions per class**
-- **High-level trends in overall data**
+- **A professor's class history**
+- **Trends in student enrollment between quarters**
+- **High-level trends in overall GPA**
 
 
     
@@ -27,6 +27,7 @@ They can discover:
     
 By visualizing the course information from 2011 to 2016,
 our team seeks to answer these questions *(and more)* succinctly.
-    
-    
-### This data was sourced by the University of Washington _____ department.
+
+-----
+
+#### This data was sourced from the University of Washington by [Austin G. Walters](https://austingwalters.com/foia-requesting-100-universities/) according to the United States Freedom of Information Act (FOIA).
