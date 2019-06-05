@@ -30,4 +30,6 @@ our team seeks to answer these questions *(and more)* succinctly.
 
 -----
 
-#### This data was sourced from the University of Washington by [Austin G. Walters](https://austingwalters.com/foia-requesting-100-universities/) according to the United States Freedom of Information Act (FOIA).
+#### This data was sourced from the University of Washington by [Austin G. Walters](https://austingwalters.com/foia-requesting-100-universities/) according to the United States Freedom of Information Act (FOIA). 
+
+[link to our code](https://github.com/ethan-sylvia/INFO-201-Final-Project)
