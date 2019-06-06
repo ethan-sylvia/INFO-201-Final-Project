@@ -1,0 +1,12 @@
+name: shinyApp
+title: shinyApp
+username:
+account: jingwangapps
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 967892
+bundleId: 2134012
+url: https://jingwangapps.shinyapps.io/shinyApp/
+when: 1559772289.14499
+asMultiple: FALSE
+asStatic: FALSE

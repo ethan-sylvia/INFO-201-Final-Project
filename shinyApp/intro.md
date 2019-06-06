@@ -25,7 +25,7 @@ They can discover:
   2. **Do students in professor Y's class do better than in professor Z's?**
   3. **Is this course offered when I want it to?**
     
-By visualizing the course information from 2011 to 2016,
+By visualizing the course information from 2010 to 2016,
 our team seeks to answer these questions *(and more)* succinctly.
 
 -----
